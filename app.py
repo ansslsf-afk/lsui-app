@@ -5,9 +5,9 @@ from PIL import Image
 import torchvision.transforms as T
 import segmentation_models_pytorch as smp
 
-st.set_page_config(page_title="LSUI Enhancer", page_icon="🌊", layout="centered")
-st.title("🌊 Underwater Image Enhancer")
-st.write("Upload gambar bawah air yang buram atau kehijauan, dan model AI (U-Net + EfficientNet-B0) akan memperbaiki warnanya!")
+st.set_page_config(page_title="LSUI Enhancer", page_icon="", layout="centered")
+st.title("Underwater Image Enhancer")
+st.write("upload your picture!")
 
 @st.cache_resource
 def load_model():
@@ -37,9 +37,9 @@ if uploaded_file is not None:
     
     col1, col2 = st.columns(2)
     with col1:
-        st.image(raw_image, caption="Gambar Asli (Input)", use_column_width=True)
+        st.image(raw_image, caption="input :", use_column_width=True)
         
-    with st.spinner('AI sedang memproses gambar...'):
+    with st.spinner('process...'):
       
         input_tensor = transform(raw_image).unsqueeze(0)
         
@@ -51,4 +51,4 @@ if uploaded_file is not None:
         output_image = (output_image * 255).clip(0, 255).astype(np.uint8)
         
     with col2:
-        st.image(output_image, caption="Hasil Enhancement (Output)", use_column_width=True)
+        st.image(output_image, caption="output :", use_column_width=True)
